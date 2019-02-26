@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-class Monero_base58 {
+class Aeon_base58 {
     /**
      * @var string
      */

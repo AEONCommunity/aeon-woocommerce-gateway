@@ -1,0 +1,14 @@
+[Unit]
+Description=Aeon Wallet RPC
+After=network.target aeond.service
+
+[Service]
+User=aeonservices
+Group=aeonservices
+WorkingDirectory=/opt/aeon-wallets
+Type=simple
+ExecStart=/opt/aeon-bin/aeon-wallet-rpc --wallet-file /opt/aeon-wallets/woocommerce --rpc-bind-port 18080 --password-file /opt/aeon-wallets/woocommerce.password --disable-rpc-login --log-file /var/log/aeon-wallet.log
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

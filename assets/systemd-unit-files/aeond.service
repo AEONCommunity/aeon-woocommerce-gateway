@@ -1,0 +1,14 @@
+[Unit]
+Description=Aeon Full Node
+After=network.target
+
+[Service]
+User=aeonservices
+Group=aeonservices
+WorkingDirectory=/opt/aeon-data-dir
+Type=simple
+LimitNOFILE=65535
+ExecStart=/usr/bin/aeond --log-file /var/log/aeond.log --data-dir /opt/aeon-data-dir --non-interactive
+Restart=always
+[Install]
+WantedBy=multi-user.target
