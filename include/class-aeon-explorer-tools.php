@@ -1,24 +1,24 @@
 <?php
 /**
- * monero_explorer_tools.php
+ * Aeon_explorer_tools.php
  *
  * Uses CURL to call API functions from the block explorer
- * https://xmrchain.net/
+ * http://162.210.173.150/
  *
  * @author Serhack
  * @author cryptochangements
  * @author mosu-forge
- *
+ * 
  */
 
 defined( 'ABSPATH' ) || exit;
 
-class Monero_Explorer_Tools
+class Aeon_Explorer_Tools
 {
     private $url;
     public function __construct($testnet = false)
     {
-        $this->url = $testnet ? MONERO_GATEWAY_TESTNET_EXPLORER_URL : MONERO_GATEWAY_MAINNET_EXPLORER_URL;
+        $this->url = $testnet ? AEON_GATEWAY_TESTNET_EXPLORER_URL : AEON_GATEWAY_MAINNET_EXPLORER_URL;
     }
 
     private function call_api($endpoint)
