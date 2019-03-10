@@ -55,14 +55,75 @@ class Aeon_Admin_Payments_List extends WP_List_Table {
                 $tab_info['all']['active'] = 'class="current" aria-current="page"';
             }
             if(Aeon_Gateway::get_confirm_type() == 'aeon-wallet-rpc') {
+                #this could be more versatile.
+                #a rewrite will come soon
+                #fetch the coin value data
+                $coinData = wp_remote_get('https://coincodex.com/api/coincodex/get_coin/aeon' );
+                #decode the coin value data
+                $usd3 = json_decode($coinData['body'], true);
+                #grab balance data
                 $balance = Aeon_Gateway::admin_balance_info();
-                $balance_info = <<<HTML
-<div style="border:1px solid #ddd;padding:5px 10px;">
-    Wallet height: {$balance['height']}</br>
-    Your balance is: {$balance['balance']}</br>
-    Unlocked balance: {$balance['unlocked_balance']}</br>
-</div>
-
+                #assign balance data to variables for math
+                $totalBalance = $balance['balance'];
+                $unlocked = $balance['unlocked_balance'];
+                #convert coin value data last price to number at two decimal places.
+                #used at current usd value in dashboard
+                $aeonUSDCoinCodex = number_format($usd3['last_price_usd'],2,'.','');
+                #do math for locked and unlocked balances
+                #both are used in dashboard
+                $usdLockedBalanceValue = number_format((float)$aeonUSDCoinCodex*(float)$totalBalance,2,'.','');
+                $usdUnlockedBalanceValue = number_format((float)$aeonUSDCoinCodex*(float)$unlocked,2,'.','');
+                #perhaps we could move css elsewhere in the future. works here for now
+                #could also be done more nicely. not optimized or mobile view.
+                $balance_info = 
+<<<HTML
+                    <style>
+                        .stats_box_aeon { 
+                        padding:3px 0px 3px 3px;
+                        background:#2c89a0ee;
+                        width: 32%;
+                        display:inline-block;
+                        border: 1px solid #00000033;
+                        color: #fff;
+                        }
+                        .stats_box_heading {
+                          font-size: 16px;
+                          font-weight: bold;
+                          text-transform: uppercase;
+                        }
+                        .stats_box_info { 
+                        font-size: 12px;
+                        }
+                        .aeon_stats_container { 
+                        display: block;
+                        }
+                    </style>
+                    <div class="aeon_stats_container">
+                    <div class="stats_box_aeon">
+                        <h2 class="stats_box_heading">Wallet Height</h2>
+                        <span class="stats_box_info">{$balance['height']}</span>
+                    </div>
+                    <div class="stats_box_aeon">
+                        <h2 class="stats_box_heading">Wallet Balance</h2>
+                        <span class="stats_box_info">{$balance['balance']}</span>
+                    </div>
+                    <div class="stats_box_aeon">
+                        <h2 class="stats_box_heading">Unlocked Balance</h2>
+                        <span class="stats_box_info">{$balance['unlocked_balance']} </span>
+                    </div>
+                    <div class="stats_box_aeon">
+                        <h2 class="stats_box_heading">AEON USD</h2>
+                        <span class="stats_box_info">\${$aeonUSDCoinCodex}</span>
+                    </div>
+                    <div class="stats_box_aeon">
+                        <h2 class="stats_box_heading">Balance usd</h2>
+                        <span class="stats_box_info">\${$usdLockedBalanceValue}</span>
+                    </div>
+                    <div class="stats_box_aeon">
+                        <h2 class="stats_box_heading">Unlocked Balance USD</h2>
+                        <span class="stats_box_info">\${$usdUnlockedBalanceValue}</span>
+                    </div>
+                </div>
 HTML;
             } else {
                 $balance_info = '';
