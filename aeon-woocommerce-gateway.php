@@ -14,8 +14,8 @@ Ported by: 420coupe
 defined( 'ABSPATH' ) || exit;
 
 // Constants, you can edit these if you fork this repo
-define('AEON_GATEWAY_MAINNET_EXPLORER_URL', 'http://aeonblocks.com');
-define('AEON_GATEWAY_TESTNET_EXPLORER_URL', 'http://testnet.aeon.lol');
+define('AEON_GATEWAY_MAINNET_EXPLORER_URL', 'https://aeonblocks.com/');
+define('AEON_GATEWAY_TESTNET_EXPLORER_URL', 'http://testnet.aeon.lol/');
 define('AEON_GATEWAY_ADDRESS_PREFIX', 0xB2);
 define('AEON_GATEWAY_ADDRESS_PREFIX_INTEGRATED', 0x2733);
 define('AEON_GATEWAY_ATOMIC_UNITS', 12);
@@ -210,7 +210,7 @@ function aeon_install() {
     if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
         $sql = "CREATE TABLE $table_name (
                order_id BIGINT(20) UNSIGNED NOT NULL,
-               payment_id VARCHAR(94) DEFAULT '' NOT NULL,
+               payment_id VARCHAR(150) DEFAULT '' NOT NULL,
                currency VARCHAR(6) DEFAULT '' NOT NULL,
                rate BIGINT UNSIGNED DEFAULT 0 NOT NULL,
                amount BIGINT UNSIGNED DEFAULT 0 NOT NULL,
@@ -227,7 +227,7 @@ function aeon_install() {
     if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
         $sql = "CREATE TABLE $table_name (
                id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-               payment_id VARCHAR(94) DEFAULT '' NOT NULL,
+               payment_id VARCHAR(150) DEFAULT '' NOT NULL,
                txid VARCHAR(64) DEFAULT '' NOT NULL,
                amount BIGINT UNSIGNED DEFAULT 0 NOT NULL,
                height MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
