@@ -80,7 +80,7 @@
     <?php echo $settings_html ?>
 </table>
 
-<h4><a href="https://github.com/monero-integrations/monerowp">Learn more about using the Aeon payment gateway</a></h4>
+<h4><a href="https://github.com/aeoncommunity/aeon-woocommerce-gateway" target="_blank">Learn more about using the Aeon payment gateway</a></h4>
 
 <script>
 function aeonUpdateFields() {
