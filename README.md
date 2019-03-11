@@ -2,7 +2,7 @@
 
 ## Features
 
-* Payment validation done through either `aeon-wallet-rpc` or the [stoffu's blockchain explorer](http://162.210.173.150/).
+* Payment validation done through either `aeon-wallet-rpc` or the [aeonblocks.com blockchain explorer](https://aeonblocks.com/).
 * Validates payments with `cron`, so does not require users to stay on the order confirmation page for their order to validate.
 * Order status updates are done through AJAX instead of Javascript page reloads.
 * Customers can pay with multiple transactions and are notified as soon as transactions hit the mempool.
@@ -20,7 +20,7 @@
 
 ## Installing the plugin
 
-* Download the plugin from the [releases page](https://github.com/420coupe/monerowp/tree/aeon) or clone with `git clone https://github.com/420coupe/monerowp/tree/aeon`
+* Download the plugin from the [releases page](https://github.com/aeoncommunity/aeon-woocommerce-gateway/releases) or clone with `git clone https://github.com/aeoncommunity/aeon-woocommerce-gateway`
 * Unzip or place the `aeon-woocommerce-gateway` folder in the `wp-content/plugins` directory.
 * Activate "Aeon Woocommerce Gateway" in your WordPress admin dashboard.
 * It is highly recommended that you use native cronjobs instead of WordPress's "Poor Man's Cron" by adding `define('DISABLE_WP_CRON', true);` into your `wp-config.php` file and adding `* * * * * wget -q -O - https://yourstore.com/wp-cron.php?doing_wp_cron >/dev/null 2>&1` to your crontab.
@@ -34,18 +34,18 @@ This is the easiest way to start accepting Aeon on your website. You'll need:
 
 Then simply select the `viewkey` option in the settings page and paste your address and viewkey. You're all set!
 
-Note on privacy: when you validate transactions with your private viewkey, your viewkey is sent to (but not stored on) xmrchain.net over HTTPS. This could potentially allow an attacker to see your incoming, but not outgoing, transactions if they were to get his hands on your viewkey. Even if this were to happen, your funds would still be safe and it would be impossible for somebody to steal your money. For maximum privacy use your own `aeon-wallet-rpc` instance.
+Note on privacy using the explorer method: when you validate transactions with your private viewkey, your viewkey is sent to (but not stored on) aeonblocks.com over HTTPS. This could potentially allow an attacker to see your incoming, but not outgoing, transactions. Even if this were to happen, your funds would still be safe and it would be impossible for somebody to steal your money. For maximum privacy, always use your own `aeon-wallet-rpc` instance.
 
 ## Option 2: Using `aeon-wallet-rpc`
 
-The most secure way to accept Aeon on your website. You'll need:
+The most secure way to accept Aeon on your website. You will need:
 
-* Root access to your webserver
+* Root or sudo access to your webserver
 * Latest [Aeon-currency binaries](https://github.com/aeonix/aeon/releases)
 
-After downloading (or compiling) the Aeon binaries on your server, install the [systemd unit files](https://github.com/420coupe/monerowp/tree/aeon/assets/systemd-unit-files) or run `aeond` and `aeon-wallet-rpc` with `screen` or `tmux`. You can skip running `aeond` by using a remote node with `aeon-wallet-rpc` by adding `--daemon-address api.aeonminingpool.com:11181` to the `aeon-wallet-rpc.service` file.
+After downloading (or compiling) the Aeon binaries on your server, install the [systemd unit files](https://github.com/aeoncommunity/aeon-woocommerce-gateway/assets/systemd-unit-files) or run `aeond` and `aeon-wallet-rpc` with `screen` or `tmux`. You can skip running `aeond` by using a remote node with `aeon-wallet-rpc` by adding `--daemon-address api.aeonminingpool.com:11181` to the `aeon-wallet-rpc.service` file.
 
-Note on security: using this option, while the most secure, requires you to run the Aeon wallet RPC program on your server. Best practice for this is to use a view-only wallet since otherwise your server would be running a hot-wallet and a security breach could allow hackers to empty your funds.
+Note on security: using this option, while the most secure, requires you to run the Aeon wallet RPC program on your server. The best practice for this is to use a view-only wallet as you only need to be able to view transactions and not send. If you choose to run the wallet as normal and not in view-only mode, you put your funds at risk of being hacked via open RPC port/IP with no password. 
 
 ## Configuration
 
@@ -54,11 +54,11 @@ Note on security: using this option, while the most secure, requires you to run 
 * `Discount for using Aeon` - Percentage discount applied to orders for paying with Aeon. Can also be negative to apply a surcharge. (Default: 0)
 * `Order valid time` - Number of seconds after order is placed that the transaction must be seen in the mempool. (Default: 3600 [1 hour])
 * `Number of confirmations` - Number of confirmations the transaction must recieve before the order is marked as complete. Use `0` for nearly instant confirmation. (Default: 5)
-* `Confirmation Type` - Confirm transactions with either your viewkey, or by using `aeon-wallet-rpc`. (Default: viewkey)
-* `Aeon Address` (if confirmation type is viewkey) - Your public Aeon address starting with 4. (No default)
+* `Confirmation Type` - Confirm transactions with either your viewkey (via explorer), or by using `aeon-wallet-rpc`. (Default: viewkey)
+* `Aeon Address` (if confirmation type is viewkey) - Your public Aeon address starting with Wm. (No default)
 * `Secret Viewkey` (if confirmation type is viewkey) - Your *private* viewkey (No default)
 * `Aeon wallet RPC Host/IP` (if confirmation type is `aeon-wallet-rpc`) - IP address where the wallet rpc is running. It is highly discouraged to run the wallet anywhere other than the local server! (Default: 127.0.0.1)
-* `Aeon wallet RPC port` (if confirmation type is `aeon-wallet-rpc`) - Port the wallet rpc is bound to with the `--rpc-bind-port` argument. (Default 18080)
+* `Aeon wallet RPC port` (if confirmation type is `aeon-wallet-rpc`) - Port the wallet rpc is bound to with the `--rpc-bind-port` argument. (Default 11182)
 * `Testnet` - Check this to change the blockchain explorer links to the testnet explorer. (Default: unchecked)
 * `SSL warnings` - Check this to silence SSL warnings. (Default: unchecked)
 * `Show QR Code` - Show payment QR codes. (Default: unchecked)
@@ -102,8 +102,6 @@ This will display a badge showing that you accept Aeon-currency.
 
 ## Donations
 
-monero-integrations: 44krVcL6TPkANjpFwS2GWvg1kJhTrN7y9heVeQiDJ3rP8iGbCd5GeA4f3c2NKYHC1R4mCgnW7dsUUUae2m9GiNBGT4T8s2X
+AEON Community: WmtyvfjhjBVRgYSuQRZs2XgpDS2qhXma4aJLsXnZx6WA75J5KixvDi9F4wLh7h6Pg9QXnTrU3nFwJczDrmFRBeUg1kxyHvfdu
 
-ryo-currency: 4A6BQp7do5MTxpCguq1kAS27yMLpbHcf89Ha2a8Shayt2vXkCr6QRpAXr1gLYRV5esfzoK3vLJTm5bDWk5gKmNrT6s6xZep
-
-420coupe: WmtAEjEZ9QCJL5NxuZM8Us8g5gG4kmCvUWvG1zEKe4KxiuUwzvpnAFUe12ixSAuLb7P5ooGFKYQbQ5EkHffWZwxs2DLLVoW71
+We are forked from Monero-Integrations. If you wish to donate to them as well for making this plug-in possible, visit https://github.com/monero-integrations/monerowp
