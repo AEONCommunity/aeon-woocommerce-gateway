@@ -53,12 +53,8 @@
         </td>
     </tr>
     <tr>
-        <td>Payment id</td>
+        <td>Subaddress</td>
         <td><?php echo $details['payment_id'] ?></td>
-    </tr>
-    <tr>
-        <td>Integrated address</td>
-        <td style="word-break: break-all;"><?php echo $details['integrated_address'] ?></td>
     </tr>
 </table>
 
