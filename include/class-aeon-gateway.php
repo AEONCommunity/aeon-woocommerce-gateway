@@ -112,7 +112,7 @@ class Aeon_Gateway extends WC_Payment_Gateway
     public function validate_aeon_address_field($key,$address)
     {
         if($this->settings['confirm_type'] == 'viewkey') {
-            if (strlen($address) == 95 && substr($address, 0, 1) == '4')
+            if (strlen($address) == 97 && substr($address, 0, 2) == 'Wm' || substr($address, 0, 2) == 'Um' )
                 if(self::$cryptonote->verify_checksum($address))
                     return $address;
             self::$_errors[] = 'Aeon address is invalid';
