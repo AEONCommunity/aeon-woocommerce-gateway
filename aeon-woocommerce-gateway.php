@@ -14,7 +14,7 @@ Ported by: 420coupe
 defined( 'ABSPATH' ) || exit;
 
 // Constants, you can edit these if you fork this repo
-define('AEON_GATEWAY_MAINNET_EXPLORER_URL', 'https://aeonblocks.com/');
+define('AEON_GATEWAY_MAINNET_EXPLORER_URL', 'https://aeonblockexplorer.com/');
 define('AEON_GATEWAY_TESTNET_EXPLORER_URL', 'http://testnet.aeon.lol/');
 define('AEON_GATEWAY_ADDRESS_PREFIX', 0xB2);
 define('AEON_GATEWAY_ADDRESS_PREFIX_INTEGRATED', 0x2733);
